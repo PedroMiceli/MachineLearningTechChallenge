@@ -33,7 +33,9 @@ def get_stock_info(symbol):
         adjusted_symbol = adjust_symbol(symbol)
 
         stock = yf.Ticker(adjusted_symbol)
+
         info = stock.info
+
         summary = {
             'symbol': info.get('symbol', adjusted_symbol),
             'name': info.get('longName', ''),
@@ -43,9 +45,8 @@ def get_stock_info(symbol):
             'profile': translator.translate(info.get('longBusinessSummary', ''), src='en', dest='pt').text
         }
 
-        # Resto do código...
 
-        return jsonify(summary)
+        return jsonify(info)
     except Exception as e:
         return jsonify({'error': str(e)})
 
