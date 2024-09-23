@@ -1,4 +1,0 @@
-Flask==2.3.3
-Flask_Caching==2.0.2
-googletrans==4.0.0rc1
-yfinance==0.2.28
