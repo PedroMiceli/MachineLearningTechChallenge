@@ -16,6 +16,7 @@ acoes_brasileiras = [
     'WEGE3', 'BBAS3', 'MGLU3', 'SUZB3', '^BVSP', 'USDBRL=X'
 ]
 
+
 # Importe a lista de ações brasileiras do arquivo brazilian_stocks.py
 from brazilian_stocks import brazilian_stocks
 
