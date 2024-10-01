@@ -11,56 +11,56 @@
 <body class="bg-gray-100">
 <!-- Restante do seu código aqui -->
 <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Yahoo Finance</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</div>
-
-    <div class="yahoo-finance bg-white shadow-lg">
+    <div class="yahoo-finance bg-white shadow-lg p-3">
         <header>
-            <h1 class="text-blue-600">Yahoo Finance</h1>
+            <h1 class="text-blue-600">Recomendação de Compra</h1>
+            <hr>
         </header>
 
-        <section class="mt-6">
-            <h2 class="text-lg text-gray-700">Ações:</h2>
-            <select id="acao" class="form-select" onchange="redirecionarParaPrevisao()">
-                <option selected>Selecione...</option>
-                {% for acao in acoes %}
-                    <option value="{{acao}}">{{ acao }}</option>
-                {% endfor %}
-            </select>
+        <section class="row mt-5">
+            <form class="col-md-8 col-10 mx-auto">
+                <fieldset>
+                    <div class="mb-3">
+                        <label for="acao" class="form-label fw-semibold fs-3">Ações</label>
+                        <select id="acao" class="form-select" onchange="redirecionarParaPrevisao()">
+                            <option value="" selected>Selecione...</option>
+                            {% for acao in acoes %}
+                                <option value="{{acao}}">{{ acao }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </fieldset>
+            </form>
         </section>
+
+        <section id="resposta" class="row mt-5 text-center fs-2 fw-semibold"></section>
     </div>
+</div>
 </body>
 </html>
 
 <script type="text/javascript">
 
     function redirecionarParaPrevisao(){
+        const elResposta = $('#resposta');
+        $(elResposta).empty();
+
         const acao = $("#acao").val();
+        if (acao == '' || acao == null || acao == undefined) {
+            alert('Selecione uma ação!')
+            return
+        }
 
         $.ajax({
             url: '/api/'+acao,
             type: 'GET',
             data:{},
             success: function(response){
-                console.log(response);
+                if (response.recomendado == 1) {
+                    $(elResposta).append("<p class='text-success'>Ação recomendada para compra!</p>");
+                } else {
+                    $(elResposta).append("<p class='text-danger'>Ação não recomendada para compra!</p>");
+                }
             },
             error: function (jqXHR, textStatus, errorThrown){
                 console.log(errorThrown)
