@@ -37,42 +37,35 @@
             <h1 class="text-blue-600">Yahoo Finance</h1>
         </header>
 
-        <section>
-            <h2 class="text-lg text-gray-700">Principais Índices do Mundo:</h2>
-            <ul>
-                {% for index_name, index_symbol in indices_mundo.items() %}
-                    <li>{{ index_name }}: {{ index_symbol }}</li>
-                {% endfor %}
-            </ul>
-        </section>
-
         <section class="mt-6">
-            <h2 class="text-lg text-gray-700">Ações Brasileiras:</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Símbolo</th>
-                        <th>Nome</th>
-                        <th>Sector</th>
-                        <th>País</th>
-                        <th>Preço Anterior</th>
-                        <th>Último Preço</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for stock_info in acoes_brasileiras %}
-                        <tr>
-                            <td>{{ stock_info['symbol'] }}</td>
-                            <td>{{ stock_info['name'] }}</td>
-                            <td>{{ stock_info['sector'] }}</td>
-                            <td>{{ stock_info['country'] }}</td>
-                            <td>{{ stock_info['previous_close'] }}</td>
-                            <td>{{ stock_info['last_price'] }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            <h2 class="text-lg text-gray-700">Ações:</h2>
+            <select id="acao" class="form-select" onchange="redirecionarParaPrevisao()">
+                <option selected>Selecione...</option>
+                {% for acao in acoes %}
+                    <option value="{{acao}}">{{ acao }}</option>
+                {% endfor %}
+            </select>
         </section>
     </div>
 </body>
 </html>
+
+<script type="text/javascript">
+
+    function redirecionarParaPrevisao(){
+        const acao = $("#acao").val();
+
+        $.ajax({
+            url: '/api/'+acao,
+            type: 'GET',
+            data:{},
+            success: function(response){
+                console.log(response);
+            },
+            error: function (jqXHR, textStatus, errorThrown){
+                console.log(errorThrown)
+            }
+        });
+    }
+
+</script>
