@@ -25,7 +25,7 @@
                         <select id="acao" class="form-select" onchange="redirecionarParaPrevisao()">
                             <option value="" selected>Selecione...</option>
                             {% for acao in acoes %}
-                                <option value="{{acao}}">{{ acao }}</option>
+                                <option value="{{acao}}">{{ acao.replace('.SA', '') }}</option>
                             {% endfor %}
                         </select>
                     </div>
