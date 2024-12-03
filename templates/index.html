@@ -56,11 +56,7 @@
             type: 'GET',
             data:{},
             success: function(response){
-                if (response.recomendado == 1) {
-                    $(elResposta).append("<p class='text-success'>Ação recomendada para compra!</p>");
-                } else {
-                    $(elResposta).append("<p class='text-danger'>Ação não recomendada para compra!</p>");
-                }
+                $(elResposta).append("<p class='text-success'>O preço preditado é: <strong>" + response.predicted_price + "</strong></p>");
             },
             error: function (jqXHR, textStatus, errorThrown){
                 console.log(errorThrown)

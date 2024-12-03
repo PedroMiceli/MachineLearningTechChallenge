@@ -58,9 +58,8 @@ def get_stock_info(symbol):
         predicted_normalized = loaded_model.predict(input_sequence)
         predicted_value = scaler.inverse_transform(predicted_normalized)
 
-        print(predicted_value[0][0])
         # Retornar a previsão em formato JSON
-        return jsonify({'symbol': symbol, 'predicted_price': predicted_value[0][0]})
+        return jsonify({'symbol': symbol, 'predicted_price': str(round(predicted_value[0][0], 2))})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
