@@ -32,7 +32,7 @@ def get_stock_info(symbol):
     try:
         # Configurar as datas para o download dos dados
         start_date = '2018-01-01'
-        end_date = '2024-07-20'
+        end_date = '2024-12-01'
 
         # Baixar os dados históricos da ação
         df = yf.download(symbol, start=start_date, end=end_date)
