@@ -1,11 +1,11 @@
 from flask import Flask, jsonify, render_template
 from flask_caching import Cache
 import yfinance as yf
-import joblib
 import numpy as np
 from tensorflow.keras.models import load_model
 from sklearn.preprocessing import MinMaxScaler
 from pydantic import BaseModel
+
 
 
 from googletrans import Translator
